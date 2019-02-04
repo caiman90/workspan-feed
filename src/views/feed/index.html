@@ -1,0 +1,46 @@
+<md-content> 
+    <md-card ng-repeat="(key, question) in vm.questions">
+           <md-card-title>
+                <md-card-title-text>
+                    {{question.Id}}
+                </md-card-title-text>        
+           </md-card-title>
+           <md-card-content>
+               <span><a ui-sref="questionDetails({questionID: question.Id,question:question})">{{question.Text}}</a></span>
+                <div>
+                    <md-button ng-click="vm.downvote(question)" ><i class="material-icons">thumb_down</i> ({{question.downvotes}})</md-button>
+                    <md-button ng-click="vm.upvote(question)" >  <i class="material-icons">thumb_up</i> ({{question.upvotes}})</md-button>
+                  </div>
+                  <div>
+                        <form name="answerForm">
+                                <md-input-container>
+                                  <label>Add new Answer</label>
+                                  <input name="newAnswer" ng-model="vm.newAnswer" minlength="10">
+                                  <div ng-messages="answerForm.newAnswer.$error">
+                                    <div ng-message="minlength">Answer is too short!</div>
+                                  </div>
+                                </md-input-container>
+                                <md-button ng-click="vm.addAnswer(question)">Add Answer</md-button>
+                        </form>
+                  </div>
+                    <md-card ng-repeat="(key, answer) in question.answers">
+                            <md-card-header>
+                                    <md-card-avatar>
+                                            <img ng-if="answer.created_by.Avatar !== undefined" src="{{ answer.created_by.Avatar }}"></img>
+                                            <md-icon ng-if="answer.created_by.Avatar === undefined" class="md-user-avatar"></md-icon>
+                                    </md-card-avatar>
+                                    <md-card-header-text>
+                                        <h3>{{answer.created_by.Name}} {{answer.created_by.Surname}}</h3>
+                                    </md-card-header-text>           
+                            </md-card-header>
+                            <md-card-content>
+                                <span>{{answer.Answer}}</span>                               
+                            </md-card-content>
+                            <div>
+                              <md-button ng-click="vm.downvote(answer)" ><i class="material-icons">thumb_down</i> ({{answer.downvotes}})</md-button>
+                              <md-button ng-click="vm.upvote(answer)" >  <i class="material-icons">thumb_up</i> ({{answer.upvotes}})</md-button>
+                            </div>
+                    </md-card>
+           </md-card-content>
+    </md-card>
+</md-content>
