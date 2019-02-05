@@ -8,6 +8,11 @@ export default class QuestionDetailsController {
 
     constructor($state: IState){
         this.question = $state.params.question;
-    }
+        if(this.question){
+            window.localStorage.setItem('question', JSON.stringify(this.question));
+        }else{
+            this.question = JSON.parse(window.localStorage.getItem('question'));
+        }
+   }
  
 }

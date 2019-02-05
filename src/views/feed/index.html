@@ -1,5 +1,5 @@
-<md-content> 
-    <md-card ng-repeat="(key, question) in vm.questions">
+<md-content class="questions-container"> 
+    <md-card ng-repeat="(key, question) in vm.questions" class="question">
            <md-card-title>
                 <md-card-title-text>
                     {{question.Id}}
@@ -8,8 +8,8 @@
            <md-card-content>
                <span><a ui-sref="questionDetails({questionID: question.Id,question:question})">{{question.Text}}</a></span>
                 <div>
-                    <md-button ng-click="vm.downvote(question)" ><i class="material-icons">thumb_down</i> ({{question.downvotes}})</md-button>
-                    <md-button ng-click="vm.upvote(question)" >  <i class="material-icons">thumb_up</i> ({{question.upvotes}})</md-button>
+                    <md-button ng-click="vm.downvote(question)" ><md-icon class="material-icons">thumb_down</md-icon> ({{question.downvotes}})</md-button>
+                    <md-button ng-click="vm.upvote(question)" >  <md-icon class="material-icons">thumb_up</md-icon> ({{question.upvotes}})</md-button>
                   </div>
                   <div>
                         <form name="answerForm">
@@ -26,19 +26,20 @@
                     <md-card ng-repeat="(key, answer) in question.answers">
                             <md-card-header>
                                     <md-card-avatar>
-                                            <img ng-if="answer.created_by.Avatar !== undefined" src="{{ answer.created_by.Avatar }}"></img>
-                                            <md-icon ng-if="answer.created_by.Avatar === undefined" class="md-user-avatar"></md-icon>
+                                            <img ng-if="answer.created_by.Avatar != undefined" src="{{ answer.created_by.Avatar }}"></img>
+                                            <md-icon ng-if="answer.created_by.Avatar == undefined" class="md-user-avatar"></md-icon>
                                     </md-card-avatar>
                                     <md-card-header-text>
-                                        <h3>{{answer.created_by.Name}} {{answer.created_by.Surname}}</h3>
+                                                    <span class="md-title">{{answer.created_by.Name}} {{answer.created_by.Surname}}</span>
+                                                    <span class="md-subhead">{{ answer.created_at }}</span>
                                     </md-card-header-text>           
                             </md-card-header>
                             <md-card-content>
                                 <span>{{answer.Answer}}</span>                               
                             </md-card-content>
                             <div>
-                              <md-button ng-click="vm.downvote(answer)" ><i class="material-icons">thumb_down</i> ({{answer.downvotes}})</md-button>
-                              <md-button ng-click="vm.upvote(answer)" >  <i class="material-icons">thumb_up</i> ({{answer.upvotes}})</md-button>
+                              <md-button ng-click="vm.downvote(answer)" ><md-icon class="material-icons">thumb_down</md-icon> ({{answer.downvotes}})</md-button>
+                              <md-button ng-click="vm.upvote(answer)" >  <md-icon class="material-icons">thumb_up</md-icon> ({{answer.upvotes}})</md-button>
                             </div>
                     </md-card>
            </md-card-content>

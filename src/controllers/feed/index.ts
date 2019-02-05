@@ -25,7 +25,7 @@ export default class FeedController {
             this.$http.get('https://api.myjson.com/bins/hildr').then((response: IHttpResponse<IFeedAnswers>) => {
                 for(let i=0; i < response.data.feed_answers.length; i++){
                     let answer = response.data.feed_answers[i];
-                    // Fxing authors data 
+                    // Fxing authors data, populating it with 
                     if(typeof answer.created_by !== 'object' ||	typeof answer.created_by === undefined || typeof answer.created_by === null){
                         answer.created_by = ANONYMUS;
                     }

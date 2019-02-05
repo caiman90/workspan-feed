@@ -1,0 +1,12 @@
+.questions-container {
+    margin-top: 20px;
+}
+.question {
+    width: 60%;
+    height: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    background-color: beige;
+}
+

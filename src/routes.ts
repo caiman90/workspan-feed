@@ -1,4 +1,4 @@
-import angular = require("angular");
+let angular = require("angular");
 
 export default class Routes {
     static inject: Array<string> = [
@@ -19,7 +19,7 @@ export default class Routes {
                     $locationProvider.hashPrefix('');
 
                     $urlRouterProvider.otherwise('/');
-                    
+
                     $stateProvider
                         .state('feed',<ng.ui.IState>{
                             url:'/',
@@ -35,6 +35,6 @@ export default class Routes {
                             params: { question: null , questionID: null}
 
                         });
-                        
+
                 }
 }
