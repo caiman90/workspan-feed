@@ -6,12 +6,27 @@
                 </md-card-title-text>        
            </md-card-title>
            <md-card-content>
-                {{vm.question.Text}}
+               <span>{{vm.question.Text}}</span>
 
-                    <div ng-repeat="(key, answer) in question.answers">
-                        <h2>ANSWERS:</h2>
-                        <span>{{answer.Answer}}</span>
+                <md-card ng-repeat="(key, answer) in vm.question.answers" class="answer">
+                    <md-card-header>
+                            <md-card-avatar>
+                                      <img ng-if="answer.created_by.Avatar !== undefined" ng-src="{{answer.created_by.Avatar}}"></img>
+                                    <md-icon ng-if="answer.created_by.Avatar === undefined" class="md-user-avatar"></md-icon>
+                            </md-card-avatar>
+                            <md-card-header-text>
+                                            <span class="md-title">{{answer.created_by.Name}} {{answer.created_by.Surname}}</span>
+                                            <span class="md-subhead">{{ answer.created_at }}</span>
+                            </md-card-header-text>           
+                    </md-card-header>
+                    <md-card-content>
+                        <span>{{answer.Answer}}</span>                               
+                    </md-card-content>
+                    <div>
+                      <md-button ng-click="vm.vote(answer,true)" ><md-icon class="material-icons">thumb_down</md-icon> ({{answer.downvotes}})</md-button>
+                      <md-button ng-click="vm.vote(answer,false)" >  <md-icon class="material-icons">thumb_up</md-icon> ({{answer.upvotes}})</md-button>
                     </div>
+            </md-card>
                     
            </md-card-content>
     </md-card>

@@ -6,40 +6,38 @@
                 </md-card-title-text>        
            </md-card-title>
            <md-card-content>
-               <span><a ui-sref="questionDetails({questionID: question.Id,question:question})">{{question.Text}}</a></span>
+               <span ui-sref="questionDetails({questionID: question.Id,question:question})" class="questionTitle">{{question.Text}}</span>
                 <div>
-                    <md-button ng-click="vm.downvote(question)" ><md-icon class="material-icons">thumb_down</md-icon> ({{question.downvotes}})</md-button>
-                    <md-button ng-click="vm.upvote(question)" >  <md-icon class="material-icons">thumb_up</md-icon> ({{question.upvotes}})</md-button>
+                    <md-button ng-click="vm.vote(question,true)" ><md-icon class="material-icons">thumb_down</md-icon> ({{question.downvotes}})</md-button>
+                    <md-button ng-click="vm.vote(question,false)" >  <md-icon class="material-icons">thumb_up</md-icon> ({{question.upvotes}})</md-button>
                   </div>
-                  <div>
                         <form name="answerForm">
-                                <md-input-container>
+                             <md-input-container class="add-answer-container">
                                   <label>Add new Answer</label>
                                   <input name="newAnswer" ng-model="vm.newAnswer" minlength="10">
                                   <div ng-messages="answerForm.newAnswer.$error">
-                                    <div ng-message="minlength">Answer is too short!</div>
+                                    <div ng-if="answerForm.newAnswer.$error.minlength" ng-message="minlength">Answer is too short!</div>
                                   </div>
-                                </md-input-container>
-                                <md-button ng-click="vm.addAnswer(question)">Add Answer</md-button>
+                              </md-input-container>
+                              <md-button class="add-answer-button" ng-click="vm.addAnswer(question)">Add Answer</md-button>
                         </form>
-                  </div>
-                    <md-card ng-repeat="(key, answer) in question.answers">
+                    <md-card ng-repeat="(key, answer) in question.answers" class="answer">
                             <md-card-header>
                                     <md-card-avatar>
-                                            <img ng-if="answer.created_by.Avatar != undefined" src="{{ answer.created_by.Avatar }}"></img>
-                                            <md-icon ng-if="answer.created_by.Avatar == undefined" class="md-user-avatar"></md-icon>
+                                          <img ng-if="answer.created_by.Avatar !== undefined" ng-src="{{answer.created_by.Avatar}}"></img>
+                                          <md-icon ng-if="answer.created_by.Avatar === undefined" class="md-user-avatar"></md-icon>
                                     </md-card-avatar>
                                     <md-card-header-text>
-                                                    <span class="md-title">{{answer.created_by.Name}} {{answer.created_by.Surname}}</span>
-                                                    <span class="md-subhead">{{ answer.created_at }}</span>
+                                           <span class="md-title">{{answer.created_by.Name}} {{answer.created_by.Surname}}</span>
+                                           <span class="md-subhead">{{ answer.created_at }}</span>
                                     </md-card-header-text>           
                             </md-card-header>
                             <md-card-content>
                                 <span>{{answer.Answer}}</span>                               
                             </md-card-content>
                             <div>
-                              <md-button ng-click="vm.downvote(answer)" ><md-icon class="material-icons">thumb_down</md-icon> ({{answer.downvotes}})</md-button>
-                              <md-button ng-click="vm.upvote(answer)" >  <md-icon class="material-icons">thumb_up</md-icon> ({{answer.upvotes}})</md-button>
+                              <md-button ng-click="vm.vote(answer,true)" ><md-icon class="material-icons">thumb_down</md-icon> ({{answer.downvotes}})</md-button>
+                              <md-button ng-click="vm.vote(answer,false)" >  <md-icon class="material-icons">thumb_up</md-icon> ({{answer.upvotes}})</md-button>
                             </div>
                     </md-card>
            </md-card-content>

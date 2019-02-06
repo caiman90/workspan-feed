@@ -1,20 +1,23 @@
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 module.exports = merge(common, {
     mode: 'production',
-    resolve:{
-        extensions:['.ts','.js','.html','.css']
-    },
     plugins: [
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
             filename:  '[hash].css',
             chunkFilename: '[hash].css',
+        }),
+        new ngAnnotatePlugin({
+            add: true,
+            // other ng-annotate options here
         })
     ],
+ 
     module: {
         rules: [
             {
@@ -31,9 +34,6 @@ module.exports = merge(common, {
                     "css-loader"
                 ]
             },
-            { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=10000'},
-            { test: /\.ts$/, loader: 'ts-loader'},
-            { test: /\.html$/, loader: "html-loader" },
         ]
     }
 });

@@ -1,18 +1,19 @@
-import { IHttpService, IHttpResponse, IFilterService } from 'angular';
+import { IHttpService, IHttpResponse, IFilterService, IScope } from 'angular';
 import { IFeedQuestion, IFeedQuestions, IFeedAnswer, IFeedAnswers } from './model';
-import { initializeUpDownVotes,ANONYMUS } from './helper';
+import { initializeUpDownVotes, ANONYMUS, vote } from './helper';
+import * as moment from 'moment';
 
-export default class FeedController {
-    message:string;
-    questions: Array<IFeedQuestion>;
-    newAnswer: string;
+export default class FeedController  {
+    questions: Array<IFeedQuestion>
+    newAnswer: string
     answers: Array<IFeedAnswer>
-    $http: IHttpService;
+    $http: IHttpService
     $filter: IFilterService
 
     static inject: Array<string> = ['$http','$filter'];
 
     constructor($http: IHttpService, $filter: IFilterService){
+       'ngInject';
         this.$http = $http;
         this.$filter = $filter;
         this.getAllQuestions();
@@ -26,7 +27,7 @@ export default class FeedController {
                 for(let i=0; i < response.data.feed_answers.length; i++){
                     let answer = response.data.feed_answers[i];
                     // Fxing authors data, populating it with 
-                    if(typeof answer.created_by !== 'object' ||	typeof answer.created_by === undefined || typeof answer.created_by === null){
+                    if(typeof answer.created_by !== 'object' ||	typeof answer.created_by === undefined || typeof answer.created_by.Avatar === 'object'){
                         answer.created_by = ANONYMUS;
                     }
                   // logic for determining number of votes 
@@ -43,41 +44,17 @@ export default class FeedController {
     }
     // allowing user to either upvote 
     // or downvote a question/answer 
-    downvote(answer:IFeedAnswer){
-        if(answer.downvoted){
-            answer.downvotes -= 1;          
-            answer.downvoted = false;
-        }else{
-            answer.downvotes += 1;               
-            answer.downvoted = true;
-            if(answer.upvoted){
-                answer.upvotes -= 1;
-                answer.upvoted = false;
-             }  
-        }
-    }
-    upvote(answer:IFeedAnswer){
-        if(answer.upvoted){
-            answer.upvotes -= 1;          
-            answer.upvoted = false;          
-        }else{
-            answer.upvotes += 1;                    
-            answer.upvoted = true;
-            if(answer.downvoted){
-                answer.downvotes -= 1;
-                answer.downvoted = false;
-             }   
-        }
+    vote(object:any,downvoted:boolean){
+      vote(object,downvoted);
     }
 
     // adding answer to particular question
     addAnswer(question: IFeedQuestion){
-        console.log("new ans" + this.newAnswer)
         if(this.newAnswer.length > 10){
             let answer = { Id: '#',
                 Question_Id: question.Id,
                 Answer: this.newAnswer,
-                created_at: String(new Date()),
+                created_at: moment(new Date()).format('DD/MMM/YY HH:MM').toString(),
                 created_by: ANONYMUS,
                 downvotes: 0,
                 upvotes: 0,

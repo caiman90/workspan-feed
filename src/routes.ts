@@ -1,5 +1,3 @@
-let angular = require("angular");
-
 export default class Routes {
     static inject: Array<string> = [
         '$locationProvider',
@@ -10,7 +8,7 @@ export default class Routes {
                 $stateProvider: angular.ui.IStateProvider,
                 $urlRouterProvider: angular.ui.IUrlRouterProvider,
                 ){
-
+                    'ngInject';
                     $locationProvider.html5Mode({
                         enabled:false,
                         requireBase:false

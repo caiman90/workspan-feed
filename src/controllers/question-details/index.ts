@@ -1,5 +1,6 @@
 import { IState } from 'angular-ui-router';
 import { IFeedQuestion } from '../feed/model';
+import { vote } from '../feed/helper';
 
 export default class QuestionDetailsController {
     question: IFeedQuestion;
@@ -7,6 +8,7 @@ export default class QuestionDetailsController {
     static inject: Array<string> = ['$state'];
 
     constructor($state: IState){
+        'ngInject';
         this.question = $state.params.question;
         if(this.question){
             window.localStorage.setItem('question', JSON.stringify(this.question));
@@ -14,5 +16,7 @@ export default class QuestionDetailsController {
             this.question = JSON.parse(window.localStorage.getItem('question'));
         }
    }
- 
+   vote(object:any, downvoted:boolean){
+       vote(object,downvoted);
+   }
 }
