@@ -1,4 +1,4 @@
-import { IHttpService, IHttpResponse, IFilterService, IScope } from 'angular';
+import { IHttpService, IHttpResponse, IFilterService } from 'angular';
 import { IFeedQuestion, IFeedQuestions, IFeedAnswer, IFeedAnswers } from './model';
 import { initializeUpDownVotes, ANONYMUS, vote } from './helper';
 import * as moment from 'moment';

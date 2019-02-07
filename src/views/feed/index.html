@@ -33,7 +33,10 @@
                                     </md-card-header-text>           
                             </md-card-header>
                             <md-card-content>
-                                <span>{{answer.Answer}}</span>                               
+                                <div class="answer-text-truncated" ng-class="removeTruncated">
+                                    <span >{{answer.Answer}}</span> </br>
+                                    <a ng-hide="removeTruncated === 'answer-text'" ng-click="removeTruncated='answer-text'">See more...</a>
+                                </div>   
                             </md-card-content>
                             <div>
                               <md-button ng-click="vm.vote(answer,true)" ><md-icon class="material-icons">thumb_down</md-icon> ({{answer.downvotes}})</md-button>

@@ -1,3 +1,7 @@
+.header{
+    text-align: center;
+}
+
 .questions-container {
     margin-top: 20px;
 }
@@ -10,7 +14,15 @@
     background-color: azure;
 }
 .answer {
-    background-color: blanchedalmond;
+    background-color: rgb(224, 245, 245);
+}
+.answer-text-truncated {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.answer-text {
+    white-space: unset
 }
 .add-answer-container{
     width: 70%;
