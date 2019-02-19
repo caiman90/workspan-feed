@@ -1,6 +1,6 @@
-import { IState } from 'angular-ui-router';
+import { IState, IUrlRouterProvider } from 'angular-ui-router';
 import { IFeedQuestion } from '../feed/model';
-import { vote } from '../feed/helper';
+import { vote } from '../../helpers/helper';
 
 export default class QuestionDetailsController {
     question: IFeedQuestion;

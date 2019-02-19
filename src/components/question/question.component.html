@@ -1,0 +1,25 @@
+<md-card>
+    <md-card-title>
+         <md-card-title-text>
+             {{question.Id}}
+         </md-card-title-text>        
+    </md-card-title>
+    <md-card-content>
+        <span ui-sref="questionDetails({questionID: question.Id,question:question})" class="questionTitle">{{question.Text}}</span>
+         <div>
+             <md-button ng-click="vm.vote(question,true)" ><md-icon class="material-icons">thumb_down</md-icon> ({{question.downvotes}})</md-button>
+             <md-button ng-click="vm.vote(question,false)" >  <md-icon class="material-icons">thumb_up</md-icon> ({{question.upvotes}})</md-button>
+           </div>
+                 <form name="answerForm">
+                      <md-input-container class="add-answer-container">
+                           <label>Add new Answer</label>
+                           <input name="newAnswer" ng-model="vm.newAnswer" minlength="10">
+                           <div ng-messages="answerForm.newAnswer.$error">
+                             <div ng-if="answerForm.newAnswer.$error.minlength" ng-message="minlength">Answer is too short!</div>
+                           </div>
+                       </md-input-container>
+                       <md-button class="add-answer-button" ng-click="vm.addAnswer(question)">Add Answer</md-button>
+                 </form>
+                 <answer-component  ng-repeat="(key, answer) in question.answers" class="answer" answer="answer"></answer-component>
+    </md-card-content>
+</md-card>
